@@ -1,0 +1,28 @@
+{
+  "name": "incremental_indicators",
+  "version": "1.0.0",
+  "description": "Incrementally calculated indicators for nodejs",
+  "main": "index.ts",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Takin-Profit/incremental_indicators.git"
+  },
+  "keywords": [
+    "technical",
+    "analysis",
+    "trading",
+    "indicators",
+    "crypto",
+    "node",
+    "typescript"
+  ],
+  "author": "Takin Profit",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Takin-Profit/incremental_indicators/issues"
+  },
+  "homepage": "https://github.com/Takin-Profit/incremental_indicators#readme"
+}
