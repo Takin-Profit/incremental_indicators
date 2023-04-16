@@ -1,0 +1,11 @@
+node_modules
+commitlint.config.cjs
+.husky
+.vscode
+.editorconfig
+.eslintignore
+.folderslintrc
+.gitignore
+.npmrc
+.prettierignore
+package-lock.json

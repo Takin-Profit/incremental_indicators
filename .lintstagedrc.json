@@ -1,0 +1,10 @@
+{
+  "*": [
+    "eslint --cache --fix --ext .js,.ts,.json,.yaml",
+    "ls-lint",
+    "folderslint"
+  ],
+  "package.json": [
+    "sort-package-json"
+  ]
+}

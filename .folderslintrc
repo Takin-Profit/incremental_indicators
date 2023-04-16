@@ -1,0 +1,12 @@
+{
+  "rules": [
+    "src",
+    "tests",
+    "node_modules/**",
+    ".idea/**",
+    ".vscode/**",
+    ".github/**",
+    ".husky/**",
+    "bin/**"
+  ]
+}

@@ -1,0 +1,32 @@
+ls:
+  src/**/*:
+    .dir: snake_case
+    .js: kebab-case | pointcase
+    .ts: kebab-case | pointcase
+    .d.ts: kebab-case | pointcase
+    .tsx: PascalCase
+
+  test/**/*:
+    .dir: snake_case | PascalCase
+    .js: kebab-case | pointcase
+    .ts: kebab-case | pointcase
+    .d.ts: kebab-case | pointcase
+    .tsx: PascalCase
+ignore:
+  - .git
+  - node_modules
+  - .DS_Store
+  - .editorconfig
+  - .eslintignore
+  - .github
+  - .husky
+  - .idea
+  - .eslintrc.cjs
+  - .gitignore
+  - .lintstagedrc.json
+  - .ls-lint.yml
+  - .npmrc
+  - .nvmrc
+  - .prettier.json
+  - Dockerfile
+  - Foyfile.ts

@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "pretty": true,
+    "noEmitOnError": true,
+    "target": "ESNext",
+    "lib": ["ESNext"],
+    "module": "NodeNext",
+    "rootDir": "./",
+    "moduleResolution": "node",
+    "allowJs": true,
+    "checkJs": true,
+    "declaration": true,
+    "declarationMap": true,
+    "outFile": "./",
+    "outDir": "./",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "exclude": ["node_modules"]
+}

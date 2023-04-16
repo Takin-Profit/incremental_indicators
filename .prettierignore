@@ -1,0 +1,9 @@
+node_modules
+.husky
+.vscode
+.editorconfig
+.eslintignore
+.folderslintrc
+.gitignore
+.npmrc
+.prettierignore
