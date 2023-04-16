@@ -42,7 +42,7 @@ module.exports = {
     'prettier'
   ],
   rules: {
-    'no-shadow': 'off',
+    'unicorn/prevent-abbreviations': 0,
     'prettier/prettier': [
       'error',
       {
@@ -55,8 +55,7 @@ module.exports = {
     'tsdoc/syntax': 'warn',
     'filenames/match-regex': 0,
     'filenames/match-exported': 2,
-    'unicorn/filename-case': 0,
-    'functional/prefer-readonly-type': 0
+    'unicorn/filename-case': 0
   },
   settings: {
     'import/resolver': {
