@@ -81,7 +81,7 @@ class ImmerAtom<T> {
     this.atom = atom(name, initialValue, {
       // In order to store diffs, we need to provide the `historyLength` argument
       // to the atom constructor. Otherwise it will not allocate a history buffer.
-      historyLength: 10,
+      historyLength: 100,
     })
   }
 
@@ -91,13 +91,13 @@ class ImmerAtom<T> {
     this.atom.set(nextValue, patches)
   }
 }
-
-function map<T, U>(
+export function map<T, U>(
   source: ImmerAtom<T[]>,
   function_: (value: T) => U,
 ): Computed<U[], Patch[]> {
   return computed(
     `${source.atom.name}:mapped`,
+    // eslint-disable-next-line sonarjs/cognitive-complexity
     (previous, lastComputedEpoch) => {
       // we need to check whether this is the first time we're running
       if (isUninitialized(previous)) {
@@ -110,6 +110,12 @@ function map<T, U>(
       const diffs = source.atom.getDiffSince(lastComputedEpoch)
       // if there is not enough history to calculate the diff, this will be the RESET_VALUE constant
       if (diffs === RESET_VALUE) {
+        if (process.env.NODE_ENV === "development") {
+          // eslint-disable-next-line no-console
+          console.warn(
+            `HISTORY RESET_VALUE triggered. Current historyLength: 100`,
+          )
+        }
         // in which case we need to start over
         // eslint-disable-next-line unicorn/no-array-callback-reference
         return source.atom.value.map(function_)
@@ -165,7 +171,7 @@ function map<T, U>(
       return withDiff(next, patches)
     },
     {
-      historyLength: 10,
+      historyLength: 100,
     },
   )
 }
