@@ -1,6 +1,14 @@
 {
     "cSpell.words": [
         "immer",
-        "signia"
+        "LSMA",
+        "ohlc",
+        "signia",
+        "SMMA",
+        "sonarjs",
+        "TEMA"
+    ],
+    "conventionalCommits.scopes": [
+        "api"
     ]
 }

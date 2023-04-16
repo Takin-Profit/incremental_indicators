@@ -42,6 +42,7 @@ module.exports = {
     'prettier'
   ],
   rules: {
+    'no-shadow': 'off',
     'prettier/prettier': [
       'error',
       {

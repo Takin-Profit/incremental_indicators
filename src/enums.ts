@@ -27,7 +27,6 @@ export type CandlePart =
   | 'OHLC3'
   | 'OHLC4'
 
-// eslint-disable-next-line no-shadow
 export enum EndType {
   Close,
   HighLow
@@ -42,3 +41,48 @@ export type Match =
   | 'BearBias'
   | 'BearSignal'
   | 'BearConfirmed'
+
+export type MaType =
+  | 'ALMA'
+  | 'EMA'
+  | 'LSMA'
+  | 'HMA'
+  | 'KAMA'
+  | 'MAMA'
+  | 'SMA'
+  | 'SMMA'
+  | 'TEMA'
+  | 'WMA'
+
+export type TimeFrame =
+  | 'Month'
+  | 'ThreeWeeks'
+  | 'TwoWeeks'
+  | 'Week'
+  | 'ThirtyDays'
+  | 'TwentyDays'
+  | 'FifteenDays'
+  | 'TenDays'
+  | 'FiveDay'
+  | 'ThreeDay'
+  | 'TwoDay'
+  | 'Day'
+  | 'TwelveHours'
+  | 'EightHours'
+  | 'SixHours'
+  | 'FourHour'
+  | 'ThreeHour'
+  | 'TwoHour'
+  | 'OneHour'
+  | '390min'
+  | '260min'
+  | '130min'
+  | '65min'
+  | '30min'
+  | '15min'
+  | '12min'
+  | '5min'
+  | '3min'
+  | '1min'
+
+export type SyncType = 'Prepend' | 'AppendOnly' | 'RemoveOnly' | 'FullMatch'
