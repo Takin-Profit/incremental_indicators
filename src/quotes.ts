@@ -1,20 +1,24 @@
-// Copyright 2023 Takin Profit
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+/*
+ * Takin Profit Llc Open Source.
+ * Copyright (c) 2023.
+ * mailto:takinprofit AT gmail DOT com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-import Decimal from "break_infinity.js"
+import Decimal from 'break_infinity.js'
 // eslint-disable-next-line import/named
-import { Draft, enablePatches, Patch, produceWithPatches } from "immer"
+import { Draft, enablePatches, Patch, produceWithPatches } from 'immer'
 import {
   Atom,
   atom,
@@ -22,13 +26,14 @@ import {
   computed,
   isUninitialized,
   RESET_VALUE,
-  withDiff,
-} from "signia"
+  withDiff
+} from 'signia'
+import { Left, Right } from 'purify-ts'
 
 enablePatches()
 
 type Brand<K, T> = K & { __brand: T }
-type _Quote = Readonly<{
+type QuoteDecimal = Readonly<{
   date: Date
   open: Decimal
   high: Decimal
@@ -40,7 +45,7 @@ type _Quote = Readonly<{
   ohlc4: () => Decimal
 }>
 
-export type Quote = Brand<_Quote, "Quote">
+export type Quote = Brand<QuoteDecimal, 'Quote'>
 
 export const createQuote = (
   date: Date,
@@ -48,7 +53,7 @@ export const createQuote = (
   high: number,
   low: number,
   close: number,
-  volume: number,
+  volume: number
 ) => {
   return {
     date,
@@ -69,7 +74,7 @@ export const createQuote = (
         .plus(this.low)
         .plus(this.close)
         .divideBy(4)
-    },
+    }
   }
 }
 
@@ -80,8 +85,9 @@ class ImmerAtom<T> {
   constructor(name: string, initialValue: T) {
     this.atom = atom(name, initialValue, {
       // In order to store diffs, we need to provide the `historyLength` argument
-      // to the atom constructor. Otherwise it will not allocate a history buffer.
-      historyLength: 100,
+      // to the atom constructor.
+      // Otherwise, it will not allocate a history buffer.
+      historyLength: 100
     })
   }
 
@@ -93,7 +99,7 @@ class ImmerAtom<T> {
 }
 export function map<T, U>(
   source: ImmerAtom<T[]>,
-  function_: (value: T) => U,
+  mapper: (value: T) => U
 ): Computed<U[], Patch[]> {
   return computed(
     `${source.atom.name}:mapped`,
@@ -103,22 +109,22 @@ export function map<T, U>(
       if (isUninitialized(previous)) {
         // if so, just map over the array and return it
         // eslint-disable-next-line unicorn/no-array-callback-reference
-        return source.atom.value.map(function_)
+        return source.atom.value.map(mapper)
       }
 
       // this is not the first time we're running, so we need to calculate the diff of the source atom
       const diffs = source.atom.getDiffSince(lastComputedEpoch)
       // if there is not enough history to calculate the diff, this will be the RESET_VALUE constant
       if (diffs === RESET_VALUE) {
-        if (process.env.NODE_ENV === "development") {
+        if (process.env.NODE_ENV === 'development') {
           // eslint-disable-next-line no-console
           console.warn(
-            `HISTORY RESET_VALUE triggered. Current historyLength: 100`,
+            `HISTORY RESET_VALUE triggered. Current historyLength: 100`
           )
         }
-        // in which case we need to start over
+        // in which case, we need to start over
         // eslint-disable-next-line unicorn/no-array-callback-reference
-        return source.atom.value.map(function_)
+        return source.atom.value.map(mapper)
       }
 
       // we have diffs and a previous value
@@ -126,37 +132,37 @@ export function map<T, U>(
         // apply the upstream diffs while generating a new set of downstream diffs
         for (const patch of diffs.flat()) {
           const index = patch.path[0]
-          if (typeof index !== "number") {
+          if (typeof index !== 'number') {
             // this will be array length changes
-            draft[patch.path[0] as "length"] = patch.value as number
+            draft[patch.path[0] as 'length'] = patch.value as number
             continue
           }
           switch (patch.op) {
-            case "add": {
+            case 'add': {
               if (patch.path.length === 1) {
                 // this is a new item in the array, we need to splice it in and call the map function on it
                 draft.splice(
                   patch.path[0] as number,
                   0,
                   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-                  function_(patch.value) as Draft<U>,
+                  mapper(patch.value) as Draft<U>
                 )
               } else {
                 // one of the existing items in the array has changed deeply
                 // let's call the map function on the new value
-                draft[index] = function_(source.atom.value[index]) as Draft<U>
+                draft[index] = mapper(source.atom.value[index]) as Draft<U>
               }
 
               break
             }
-            case "replace": {
+            case 'replace': {
               // one of the existing items in the array has been fully replaced
               // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-              draft[index] = function_(patch.value) as Draft<U>
+              draft[index] = mapper(patch.value) as Draft<U>
 
               break
             }
-            case "remove": {
+            case 'remove': {
               next.splice(index, 1)
 
               break
@@ -171,9 +177,24 @@ export function map<T, U>(
       return withDiff(next, patches)
     },
     {
-      historyLength: 100,
-    },
+      historyLength: 100
+    }
   )
+}
+// validate quotesList to ensure that there are no duplicate dates found
+const validate = (quotes: Quote[]) => {
+  // data consistency when performing look back is not guaranteed - force sorting by date
+  const quotesList = quotes.sort((a, b) => a.date.getDate() - b.date.getDate())
+  let minDate = new Date(-8_640_000_000_000_000)
+  for (const quote of quotesList) {
+    if (minDate === quote.date) {
+      return Left(
+        new Error(`Duplicate date found on ${quote.date.toDateString()}.`)
+      )
+    }
+    minDate = quote.date
+  }
+  return Right(quotesList)
 }
 
 export class Quotes {
