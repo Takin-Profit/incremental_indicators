@@ -2,7 +2,9 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 import { Either, Left, Right } from 'purify-ts'
-
+import { TimeFrame } from './enums'
+import { match } from 'ts-pattern'
+import { TimeSpan } from 'timespan-ts'
 // Standard Deviation function
 export const stdDev = (values: number[]): Either<Error, number> => {
   // eslint-disable-next-line unicorn/no-null
@@ -27,6 +29,7 @@ export const stdDev = (values: number[]): Either<Error, number> => {
   return Right(sd)
 }
 
+// SLOPE of BEST FIT LINE
 export const slope = (x: number[], y: number[]): Either<Error, number> => {
   // eslint-disable-next-line unicorn/no-null
   if (x == null) {
@@ -62,3 +65,37 @@ export const slope = (x: number[], y: number[]): Either<Error, number> => {
   }
   return Right(sumSqXY / sumSqX)
 }
+
+export const toTimeSpan = (timeFrame: TimeFrame): TimeSpan =>
+  match(timeFrame)
+    .with('ThirtyDays', () => TimeSpan.fromDays(30))
+    .with('TwentyDays', () => TimeSpan.fromDays(20))
+    .with('FifteenDays', () => TimeSpan.fromDays(15))
+    .with('TenDays', () => TimeSpan.fromDays(10))
+    .with('FiveDays', () => TimeSpan.fromDays(5))
+    .with('ThreeDays', () => TimeSpan.fromDays(3))
+    .with('TwoDays', () => TimeSpan.fromDays(2))
+    .with('Day', () => TimeSpan.fromDays(1))
+    .with('ThreeWeeks', () => TimeSpan.fromDays(21))
+    .with('TwoWeeks', () => TimeSpan.fromDays(14))
+    .with('Week', () => TimeSpan.fromDays(7))
+    .with('TwelveHours', () => TimeSpan.fromHours(12))
+    .with('EightHours', () => TimeSpan.fromHours(8))
+    .with('SixHours', () => TimeSpan.fromHours(6))
+    .with('FourHour', () => TimeSpan.fromHours(4))
+    .with('ThreeHour', () => TimeSpan.fromHours(3))
+    .with('TwoHour', () => TimeSpan.fromHours(2))
+    .with('OneHour', () => TimeSpan.fromHours(1))
+    .with('390min', () => TimeSpan.fromMinutes(390))
+    .with('260min', () => TimeSpan.fromMinutes(260))
+    .with('130min', () => TimeSpan.fromMinutes(130))
+    .with('65min', () => TimeSpan.fromMinutes(6565))
+    .with('45min', () => TimeSpan.fromMinutes(45))
+    .with('30min', () => TimeSpan.fromMinutes(30))
+    .with('24min', () => TimeSpan.fromMinutes(24))
+    .with('15min', () => TimeSpan.fromMinutes(15))
+    .with('12min', () => TimeSpan.fromMinutes(12))
+    .with('5min', () => TimeSpan.fromMinutes(5))
+    .with('3min', () => TimeSpan.fromMinutes(3))
+    .with('1min', () => TimeSpan.fromMinutes(1))
+    .exhaustive()

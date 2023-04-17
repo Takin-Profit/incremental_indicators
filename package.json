@@ -31,9 +31,12 @@
   },
   "dependencies": {
     "break_infinity.js": "^2.2.0",
+    "date-fns": "^2.29.3",
     "immer": "^9.0.21",
     "purify-ts": "^2.0.0",
-    "signia": "^0.1.1"
+    "signia": "^0.1.1",
+    "timespan-ts": "^1.0.3",
+    "ts-pattern": "^4.2.2"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.6.1",
