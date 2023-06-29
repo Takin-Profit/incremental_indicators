@@ -9,7 +9,9 @@
         "TEMA"
     ],
     "conventionalCommits.scopes": [
-        "api"
+        "api",
+        "lib",
+        "indicators"
     ],
     "docwriter.style": "JSDoc",
     "docwriter.progress.trackTypes": false
