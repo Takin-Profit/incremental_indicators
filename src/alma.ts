@@ -6,7 +6,7 @@ export const getAlma = ({ len = 20, offset = 0.85, sigma = 6 } = {}) => {
   const m = offset * (windowSize - 1)
   const s = windowSize / sigma
 
-  return (data: number): number => {
+  return (data: number) => {
     window.put(data)
 
     if (window.filledSize < len) {

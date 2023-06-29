@@ -2,6 +2,7 @@
   "rules": [
     "src",
     "tests",
+    "tests/data",
     "node_modules/**",
     ".idea/**",
     ".vscode/**",

@@ -9,3 +9,4 @@ commitlint.config.cjs
 .npmrc
 .prettierignore
 package-lock.json
+tests/data

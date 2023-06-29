@@ -12,7 +12,8 @@
         "api",
         "lib",
         "indicators",
-        "sma"
+        "sma",
+        "test"
     ],
     "docwriter.style": "JSDoc",
     "docwriter.progress.trackTypes": false
