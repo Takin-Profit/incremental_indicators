@@ -1,7 +1,7 @@
 import { CircularBuf } from './circular_buffer'
-import { TaFunc, average } from './util'
+import { average } from './util'
 
-export function getSMA(len = 20): TaFunc {
+export const getSMA = (len = 20) => {
   const buffer = new CircularBuf(len)
 
   return (data: number) => {
