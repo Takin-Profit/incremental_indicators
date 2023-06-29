@@ -1,4 +1,4 @@
-class CircularBuf {
+export class CircularBuf {
   private _buffer: Float64Array
   private _start = 0
   private _counter = 0

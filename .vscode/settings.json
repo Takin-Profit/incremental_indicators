@@ -11,7 +11,8 @@
     "conventionalCommits.scopes": [
         "api",
         "lib",
-        "indicators"
+        "indicators",
+        "sma"
     ],
     "docwriter.style": "JSDoc",
     "docwriter.progress.trackTypes": false
