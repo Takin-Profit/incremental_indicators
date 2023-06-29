@@ -24,10 +24,9 @@ export type CandlePart =
   | 'HL2'
   | 'HLC3'
   | 'OC2'
-  | 'OHLC3'
+  | 'OHL3'
   | 'OHLC4'
 
-// eslint-disable-next-line no-shadow
 export enum EndType {
   Close,
   HighLow

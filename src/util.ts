@@ -16,7 +16,6 @@
  * limitations under the License.
  */
 
-import Decimal from 'break_infinity.js'
 // eslint-disable-next-line import/named
 import { Draft, enablePatches, Patch, produceWithPatches } from 'immer'
 import {
@@ -28,55 +27,9 @@ import {
   RESET_VALUE,
   withDiff
 } from 'signia'
-import { Left, Right } from 'purify-ts'
 
 enablePatches()
-
-type Brand<K, T> = K & { __brand: T }
-type QuoteDecimal = Readonly<{
-  date: Date
-  open: Decimal
-  high: Decimal
-  low: Decimal
-  close: Decimal
-  volume: Decimal
-  hl2: () => Decimal
-  hl3: () => Decimal
-  ohlc4: () => Decimal
-}>
-
-export type Quote = Brand<QuoteDecimal, 'Quote'>
-
-export const createQuote = (
-  date: Date,
-  open: number,
-  high: number,
-  low: number,
-  close: number,
-  volume: number
-) => {
-  return {
-    date,
-    open: new Decimal(open),
-    high: new Decimal(high),
-    low: new Decimal(low),
-    close: new Decimal(close),
-    volume: new Decimal(volume),
-    get hl2() {
-      return this.high.plus(this.low).divideBy(2)
-    },
-    get hl3() {
-      return this.high.plus(this.low).plus(this.close).divideBy(3)
-    },
-    get ohlc4() {
-      return this.open
-        .plus(this.high)
-        .plus(this.low)
-        .plus(this.close)
-        .divideBy(4)
-    }
-  }
-}
+export type Brand<K, T> = K & { __brand: T }
 
 class ImmerAtom<T> {
   // The second Atom type parameter is the type of the diff
@@ -91,7 +44,6 @@ class ImmerAtom<T> {
     })
   }
 
-  // eslint-disable-next-line unicorn/prevent-abbreviations
   update(fn: (draft: T) => void) {
     const [nextValue, patches] = produceWithPatches(this.atom.value, fn)
     this.atom.set(nextValue, patches)
@@ -117,7 +69,8 @@ export function map<T, U>(
       // if there is not enough history to calculate the diff, this will be the RESET_VALUE constant
       if (diffs === RESET_VALUE) {
         if (process.env.NODE_ENV === 'development') {
-          // eslint-disable-next-line no-console
+          // stop vscode deletion on next line
+
           console.warn(
             `HISTORY RESET_VALUE triggered. Current historyLength: 100`
           )
@@ -181,26 +134,5 @@ export function map<T, U>(
     }
   )
 }
-// validate quotesList to ensure that there are no duplicate dates found
-const validate = (quotes: Quote[]) => {
-  // data consistency when performing look back is not guaranteed - force sorting by date
-  const quotesList = quotes.sort((a, b) => a.date.getDate() - b.date.getDate())
-  let minDate = new Date(-8_640_000_000_000_000)
-  for (const quote of quotesList) {
-    if (minDate === quote.date) {
-      return Left(
-        new Error(`Duplicate date found on ${quote.date.toDateString()}.`)
-      )
-    }
-    minDate = quote.date
-  }
-  return Right(quotesList)
-}
 
-export class Quotes {
-  readonly quotes: ImmerAtom<Quote[]>
-
-  private constructor(name: string, quotes: Quote[]) {
-    this.quotes = new ImmerAtom(name, quotes)
-  }
-}
+export const minDate = new Date(-8_640_000_000_000_000).toUTCString()

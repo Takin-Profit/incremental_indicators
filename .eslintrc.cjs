@@ -43,6 +43,9 @@ module.exports = {
   ],
   rules: {
     'unicorn/prevent-abbreviations': 0,
+    'eslint-comments/no-use': 'off',
+    'no-console': 'warn',
+    'no-shadow': 'off',
     'prettier/prettier': [
       'error',
       {

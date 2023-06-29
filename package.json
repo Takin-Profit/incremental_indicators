@@ -31,25 +31,25 @@
   },
   "dependencies": {
     "break_infinity.js": "^2.2.0",
-    "date-fns": "^2.29.3",
-    "immer": "^9.0.21",
-    "purify-ts": "^2.0.0",
-    "signia": "^0.1.1",
+    "date-fns": "^2.30.0",
+    "immer": "^10.0.2",
+    "purify-ts": "^2.0.1",
+    "signia": "^0.1.4",
     "timespan-ts": "^1.0.3",
-    "ts-pattern": "^4.2.2"
+    "ts-pattern": "^5.0.1"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.6.1",
-    "@commitlint/config-conventional": "^17.6.1",
+    "@commitlint/cli": "^17.6.6",
+    "@commitlint/config-conventional": "^17.6.6",
     "@japa/api-client": "^1.4.4",
     "@japa/expect": "^2.0.2",
     "@japa/run-failed-tests": "^1.1.1",
     "@japa/runner": "^2.5.1",
     "@japa/spec-reporter": "^1.3.3",
-    "@ls-lint/ls-lint": "^1.11.2",
-    "@typescript-eslint/eslint-plugin": "^5.58.0",
-    "@typescript-eslint/parser": "^5.58.0",
-    "eslint": "^8.38.0",
+    "@ls-lint/ls-lint": "^2.0.1",
+    "@typescript-eslint/eslint-plugin": "^5.60.1",
+    "@typescript-eslint/parser": "^5.60.1",
+    "eslint": "^8.43.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-array-func": "^3.1.8",
     "eslint-plugin-github": "^4.7.0",
@@ -65,11 +65,11 @@
     "folderslint": "^1.2.0",
     "husky": "^8.0.3",
     "japa": "^4.0.0",
-    "lint-staged": "^13.2.1",
+    "lint-staged": "^13.2.3",
     "pinst": "^3.0.0",
-    "prettier": "^2.8.7",
+    "prettier": "^2.8.8",
     "sort-package-json": "^2.4.1",
-    "tsx": "^3.12.6",
-    "typescript": "^5.0.4"
+    "tsx": "^3.12.7",
+    "typescript": "^5.1.6"
   }
 }
