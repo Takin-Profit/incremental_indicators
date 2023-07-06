@@ -67,7 +67,7 @@
     "japa": "^4.0.0",
     "lint-staged": "^13.2.3",
     "pinst": "^3.0.0",
-    "prettier": "^2.8.8",
+    "prettier": "^3.0.0",
     "sort-package-json": "^2.4.1",
     "tsx": "^3.12.7",
     "typescript": "^5.1.6"
