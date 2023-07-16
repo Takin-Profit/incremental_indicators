@@ -60,7 +60,7 @@
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-sonarjs": "^0.19.0",
     "eslint-plugin-tsdoc": "^0.2.17",
-    "eslint-plugin-unicorn": "^46.0.0",
+    "eslint-plugin-unicorn": "^48.0.0",
     "eslint-plugin-yaml": "^0.5.0",
     "folderslint": "^1.2.0",
     "husky": "^8.0.3",
